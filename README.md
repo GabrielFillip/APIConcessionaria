@@ -38,9 +38,6 @@ APIConcessionaria/
 ├── tsconfig.json
 ├── README.md
 
-yaml
-Copiar
-Editar
 
 ---
 
