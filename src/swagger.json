@@ -1,0 +1,252 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Concessionária",
+    "version": "1.0.0",
+    "description": "Documentação da API para gerenciamento de concessionária de carros."
+  },
+  "paths": {
+    "/dealerships": {
+      "post": {
+        "summary": "Cadastrar uma nova concessionária",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "AutoCar Veículos" },
+                  "address": { "type": "string", "example": "Av. Brasil, 1234 - São Paulo/SP" },
+                  "contact": { "type": "string", "example": "(11) 99999-0000" }
+                },
+                "required": ["name", "address", "contact"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Concessionária cadastrada com sucesso" },
+          "400": { "description": "Dados inválidos" }
+        }
+      },
+      "get": {
+        "summary": "Listar todas as concessionárias",
+        "responses": {
+          "200": { "description": "Lista de concessionárias" }
+        }
+      }
+    },
+    "/dealerships/{id}": {
+      "get": {
+        "summary": "Buscar concessionária por ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Concessionária encontrada" },
+          "404": { "description": "Concessionária não encontrada" }
+        }
+      },
+      "put": {
+        "summary": "Atualizar concessionária",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "address": { "type": "string" },
+                  "contact": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Concessionária atualizada" },
+          "404": { "description": "Concessionária não encontrada" }
+        }
+      },
+      "delete": {
+        "summary": "Remover concessionária",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "Concessionária removida" },
+          "404": { "description": "Concessionária não encontrada" }
+        }
+      }
+    },
+    "/customers": {
+      "post": {
+        "summary": "Cadastrar um novo cliente",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "João da Silva" },
+                  "contact": { "type": "string", "example": "(11) 98888-1234" },
+                  "dealershipId": { "type": "integer", "example": 1 }
+                },
+                "required": ["name", "contact", "dealershipId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Cliente cadastrado com sucesso" },
+          "400": { "description": "Dados inválidos" }
+        }
+      },
+      "get": {
+        "summary": "Listar todos os clientes",
+        "responses": {
+          "200": { "description": "Lista de clientes" }
+        }
+      }
+    },
+    "/customers/{id}": {
+      "get": {
+        "summary": "Buscar cliente por ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Cliente encontrado" },
+          "404": { "description": "Cliente não encontrado" }
+        }
+      },
+      "put": {
+        "summary": "Atualizar cliente",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "contact": { "type": "string" },
+                  "dealershipId": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Cliente atualizado" },
+          "404": { "description": "Cliente não encontrado" }
+        }
+      },
+      "delete": {
+        "summary": "Remover cliente",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "Cliente removido" },
+          "404": { "description": "Cliente não encontrado" }
+        }
+      }
+    },
+    "/vehicles": {
+      "post": {
+        "summary": "Cadastrar um novo veículo",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "brand": { "type": "string", "example": "Toyota" },
+                  "model": { "type": "string", "example": "Corolla" },
+                  "year": { "type": "integer", "example": 2022 },
+                  "chassis": { "type": "string", "example": "9BWZZZ377VT004251" },
+                  "color": { "type": "string", "example": "Preto" },
+                  "fuel": { "type": "string", "example": "Gasolina" },
+                  "dealershipId": { "type": "integer", "example": 1 }
+                },
+                "required": ["brand", "model", "year", "chassis", "color", "fuel", "dealershipId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Veículo cadastrado com sucesso" },
+          "400": { "description": "Dados inválidos" }
+        }
+      },
+      "get": {
+        "summary": "Listar todos os veículos",
+        "responses": {
+          "200": { "description": "Lista de veículos" }
+        }
+      }
+    },
+    "/vehicles/{id}": {
+      "get": {
+        "summary": "Buscar veículo por ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Veículo encontrado" },
+          "404": { "description": "Veículo não encontrado" }
+        }
+      },
+      "put": {
+        "summary": "Atualizar veículo",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "brand": { "type": "string" },
+                  "model": { "type": "string" },
+                  "year": { "type": "integer" },
+                  "chassis": { "type": "string" },
+                  "color": { "type": "string" },
+                  "fuel": { "type": "string" },
+                  "dealershipId": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Veículo atualizado" },
+          "404": { "description": "Veículo não encontrado" }
+        }
+      },
+      "delete": {
+        "summary": "Remover veículo",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "Veículo removido" },
+          "404": { "description": "Veículo não encontrado" }
+        }
+      }
+    }
+  }
+}
